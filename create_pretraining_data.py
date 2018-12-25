@@ -21,7 +21,7 @@ from __future__ import print_function
 import collections
 import random
 
-import tokenization
+import tokenization as tokenization
 import tensorflow as tf
 
 flags = tf.flags
@@ -34,6 +34,9 @@ flags.DEFINE_string("input_file", None,
 flags.DEFINE_string(
     "output_file", None,
     "Output TF example file (or comma-separated list of files).")
+
+flags.DEFINE_string("model_file", None,
+                    "The model file of SentencePiece that the BERT model uses for tokenization.")
 
 flags.DEFINE_string("vocab_file", None,
                     "The vocabulary file that the BERT model was trained on.")
@@ -409,7 +412,9 @@ def main(_):
   tf.logging.set_verbosity(tf.logging.INFO)
 
   tokenizer = tokenization.FullTokenizer(
-      vocab_file=FLAGS.vocab_file, do_lower_case=FLAGS.do_lower_case)
+      model_file=FLAGS.model_file,
+      vocab_file=FLAGS.vocab_file,
+      do_lower_case=FLAGS.do_lower_case)
 
   input_files = []
   for input_pattern in FLAGS.input_file.split(","):
@@ -437,5 +442,6 @@ def main(_):
 if __name__ == "__main__":
   flags.mark_flag_as_required("input_file")
   flags.mark_flag_as_required("output_file")
+  flags.mark_flag_as_required("model_file")
   flags.mark_flag_as_required("vocab_file")
   tf.app.run()

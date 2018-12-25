@@ -1,0 +1,6 @@
+[submodule "library/sentencepiece"]
+	path = library/sentencepiece
+	url = git@github.com:google/sentencepiece.git
+[submodule "library/wikiextractor"]
+	path = library/wikiextractor
+	url = git@github.com:attardi/wikiextractor.git
