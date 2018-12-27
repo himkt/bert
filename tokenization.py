@@ -77,6 +77,7 @@ def load_vocab(vocab_file):
       token = convert_to_unicode(reader.readline())
       if not token:
         break
+      token, _ = token.split('\t')
       token = token.strip()
       vocab[token] = index
       index += 1
@@ -87,7 +88,10 @@ def convert_tokens_to_ids(vocab, tokens):
   """Converts a sequence of tokens into ids using the vocab."""
   ids = []
   for token in tokens:
-    ids.append(vocab[token])
+      if token in vocab:
+        ids.append(vocab[token])
+      else:
+        ids.append(vocab['<unk>'])
   return ids
 
 
