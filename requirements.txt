@@ -1,5 +1,6 @@
 
 tiny_tokenizer == 1.0.4
+sentencepiece
 
 tqdm
 
